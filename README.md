@@ -14,3 +14,21 @@ Requirement
 
 MTA running on 127.0.0.1:25/tcp
 
+How to compile
+--------------
+
+    % cc -Wall -static -o comment.cgi comment.c
+    % touch comment-data.txt
+    % sudo chown www comment-data.txt
+
+HTML example
+------------
+
+    <form action="./comment.cgi" id="commentForm" method="POST">
+      Your name: <input type="text" name="name" size="10">
+      Comment: <input type="text" name="comment" size="40">
+      <input type="submit">
+    </form>
+    <ul>
+    <!--#include file="comment-data.txt" -->
+    </ul>
