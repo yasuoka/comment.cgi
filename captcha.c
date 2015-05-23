@@ -4,8 +4,6 @@
 bool
 captcha_code_is_valid(const char *code)
 {
-	int i, n;
-
 	if (code == NULL)
 		return false;
 
