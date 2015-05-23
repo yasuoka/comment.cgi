@@ -128,6 +128,7 @@ mail_notify(const char *mail_from, const char *mail_to, const char *name,
 	FILE               *mailfp;
 	extern char        *__progname;
 
+	memset(&sin4, 0, sizeof(sin4));
 	sin4.sin_family = AF_INET;
 	sin4.sin_len = sizeof(sin4);
 	sin4.sin_addr.s_addr = htonl(0x7f000001);
