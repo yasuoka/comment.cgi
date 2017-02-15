@@ -9,8 +9,8 @@ a privillege separated process.  This is used at
 http://yasuoka.net/~yasuoka/calendar.html
 
 
-Requirement
------------
+Prerequisite
+------------
 
 MTA running on 127.0.0.1:25/tcp
 
