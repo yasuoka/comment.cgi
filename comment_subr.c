@@ -298,6 +298,4 @@ url_decode(char *str)
 		} else if (i != j)
 			str[j] = str[i];
 	}
-	if (i != j)
-		str[j] = '\0';
 }
