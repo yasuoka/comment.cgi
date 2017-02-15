@@ -36,8 +36,6 @@
 int
 main(int argc, char *argv[])
 {
-	extern char *tzname[2];
-
 	setenv("TZ", "Asia/Tokyo", 1);	// time zone
 	comment_cgi(
 	    "comment-data.txt",		// file name of comment data.
