@@ -204,7 +204,7 @@ reply(const char *html_path)
 	ASSERT(getenv("HTTP_HOST") != NULL);
 	ASSERT(getenv("REQUEST_URI") != NULL);
 
-	strlcpy(url, "http://", sizeof(url));
+	strlcat(url, "http://", sizeof(url));
 	strlcat(url, getenv("HTTP_HOST"), sizeof(url));
 	strlcat(url, getenv("REQUEST_URI"), sizeof(url));
 	slash = strrchr(url, '/');
@@ -303,4 +303,6 @@ url_decode(char *str)
 		} else if (i != j)
 			str[j] = str[i];
 	}
+	if (i != j)
+		str[j] = '\0';
 }
