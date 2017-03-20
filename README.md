@@ -25,8 +25,8 @@ HTML example
 ------------
 
     <form action="./comment.cgi" id="commentForm" method="POST">
-      Your name: <input type="text" name="name" size="10">
-      Comment: <input type="text" name="comment" size="40">
+      Your name: <input type="text" name="name" size="10" maxlength="20">
+      Comment: <input type="text" name="comment" size="40" maxlength="1024">
       <input type="submit">
     </form>
     <ul>
