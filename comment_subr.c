@@ -45,7 +45,7 @@ comment_cgi(const char *file_name, const char *html_path, const char *mail_from,
 {
 	int          f;
 	FILE        *fp;
-	const char  *outfn = NULL, *name, *comment, *code;
+	const char  *name, *comment, *code;
 	char        *ap, *ap0, qs[CGI_BUFSIZ], tmbuf[80], buf[CGI_BUFSIZ];
 	time_t       currtime;
 	struct tm    currtm;
@@ -96,10 +96,10 @@ comment_cgi(const char *file_name, const char *html_path, const char *mail_from,
 	 */
 	if ((f = open(file_name, O_RDWR | O_APPEND | O_CREAT | O_EXLOCK, 0600))
 	    < 0)
-		err(EX_OSERR, "open(%s)", outfn);
+		err(EX_OSERR, "open(%s)", file_name);
 	if ((fp = fdopen(f, "w+")) == NULL) {
 		close(f);
-		err(EX_OSERR, "fdopen(%s)", outfn);
+		err(EX_OSERR, "fdopen(%s)", file_name);
 	}
 	strftime(tmbuf, sizeof(tmbuf), "%Y%m%d%H%M%S", &currtm);
 	fprintf(fp, "<li id=\"c%s\">", tmbuf);
@@ -133,7 +133,6 @@ mail_notify(const char *mail_from, const char *mail_to, const char *name,
 	FILE               *mailfp;
 	extern char        *__progname;
 
-	memset(&sin4, 0, sizeof(sin4));
 	sin4.sin_family = AF_INET;
 	sin4.sin_len = sizeof(sin4);
 	sin4.sin_addr.s_addr = htonl(0x7f000001);
