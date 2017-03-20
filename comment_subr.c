@@ -25,6 +25,8 @@
 #define	nitems(_x)	(sizeof(_x) / sizeof((_x)[0]))
 #endif
 
+#define CGI_BUFSIZ	8192
+
 #define	ASSERT(cond)							\
 	do {								\
 		if (!(cond))						\
@@ -44,7 +46,7 @@ comment_cgi(const char *file_name, const char *html_path, const char *mail_from,
 	int          f;
 	FILE        *fp;
 	const char  *outfn = NULL, *name, *comment, *code;
-	char        *ap, *ap0, qs[BUFSIZ], tmbuf[80], buf[BUFSIZ];
+	char        *ap, *ap0, qs[CGI_BUFSIZ], tmbuf[80], buf[CGI_BUFSIZ];
 	time_t       currtime;
 	struct tm    currtm;
 
@@ -57,6 +59,9 @@ comment_cgi(const char *file_name, const char *html_path, const char *mail_from,
 	name = comment = code = "";
 	if (fgets(qs, sizeof(qs), stdin) == NULL)
 		err(EX_OSERR, "%s(): fgets", __func__);
+	if (!feof(stdin))
+		errx(-1, "%s(): input is too long", __func__);
+
 	for (ap0 = qs; (ap = strsep(&ap0, "&\n")) != NULL;) {
 		char *n, *v;
 
