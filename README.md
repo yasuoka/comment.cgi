@@ -26,7 +26,7 @@ HTML example
 
     <script type="text/javascript"
       src="http://code.jquery.com/jquery-latest.js">
-      $.get('comment-data.txt.txt?s=' + new Date().getTime(), function(data) {
+      $.get('comment-data.txt?s=' + new Date().getTime(), function(data) {
 	  $("#comment").append(data);
       });
     </script>
