@@ -19,7 +19,8 @@ How to compile
 
     % cc -Wall -static -o comment.cgi comment.c
     % touch comment-data.txt
-    % sudo chown www comment-data.txt
+    % doas chown www comment-data.txt
+    % doas chmod 600 comment-data.txt
 
 HTML example
 ------------
