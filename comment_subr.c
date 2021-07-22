@@ -94,8 +94,7 @@ comment_cgi(const char *file_name, const char *html_path, const char *mail_from,
 	/*
 	 * write the file.
 	 */
-	if ((f = open(file_name, O_RDWR | O_APPEND | O_CREAT | O_EXLOCK, 0600))
-	    < 0)
+	if ((f = open(file_name, O_RDWR | O_APPEND | O_EXLOCK)) < 0)
 		err(EX_OSERR, "open(%s)", file_name);
 	if ((fp = fdopen(f, "w+")) == NULL) {
 		close(f);
