@@ -32,13 +32,20 @@
 #define CHECK_CAPTCHA	1
 #include "captcha.c"
 #include "comment_subr.c"
+#define COMMENT_PATH "comment-data.txt"		// file name of comment data.
 
 int
 main(int argc, char *argv[])
 {
 	setenv("TZ", "Asia/Tokyo", 1);	// time zone
+
+	if (unveil(COMMENT_PATH, "rw") == -1)
+		err(1, "unveil");
+	if (pledge("stdio inet flock rpath wpath", NULL) == -1)
+		err(1, "pledge");
+
 	comment_cgi(
-	    "comment-data.txt",		// file name of comment data.
+	    COMMENT_PATH,
 	    "comment.html",		// file name of HTML displays the form
 	    "MAILFROM@example.jp",	// sender mail address of hte notice
 	    "MAILTO@example.jp");	// recipient mail address of the notice
