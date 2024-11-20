@@ -126,7 +126,7 @@ static void
 mail_notify(const char *mail_from, const char *mail_to, const char *name,
     const char *comment, const char *code, struct tm *currtm)
 {
-	int                 s;
+	int                 s, is6;
 	struct sockaddr_in  sin4;
 	char                tmbuf[128];
 	FILE               *mailfp;
@@ -153,6 +153,8 @@ mail_notify(const char *mail_from, const char *mail_to, const char *name,
 			errx(EX_OSERR, "error on mail server: %s", _buf);\
 		}							\
 	} while (0/* CONSTCOND */)
+
+	is6 = (strchr(getenv("REMOTE_ADDR"), ':') == 0)? 0 : 1;
 
 	if ((s = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP)) < 0)
 		err(EX_OSERR, "socket");
@@ -181,11 +183,12 @@ mail_notify(const char *mail_from, const char *mail_to, const char *name,
 	    "MIME-Version: 1.0\n"
 	    "\n"
 	    "Date:       %s\n"
-	    "IP Address: %s:%s\n"
+	    "Source:     %s%s%s:%s\n"
 	    "Name:       %s\n"
 	    "Comment:    %s\n"
 	    "Code:       %s\n",
-	    mail_to, mail_from, __progname, tmbuf, getenv("REMOTE_ADDR"),
+	    mail_to, mail_from, __progname, tmbuf,
+	    (is6)? "[" : "", getenv("REMOTE_ADDR"), (is6)? "]" : "",
 	    getenv("REMOTE_PORT"), name, comment, code);
 
 	fprintf(mailfp, "\r\n.\r\n");
