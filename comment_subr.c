@@ -143,9 +143,9 @@ mail_notify(const char *mail_from, const char *mail_to, const char *name,
 		for (;;) {						\
 			if (fgets(_buf, sizeof(_buf), (_fp)) == NULL)	\
 				err(EX_OSERR, "fgets");			\
-			if (isascii(_buf[0]) && isdigit(_buf[0]) &&	\
-			    isascii(_buf[1]) && isdigit(_buf[1]) &&	\
-			    isascii(_buf[2]) && isdigit(_buf[2]) &&	\
+			if (isdigit((unsigned char)_buf[0]) &&	\
+			    isdigit((unsigned char)_buf[1]) &&	\
+			    isdigit((unsigned char)_buf[2]) &&	\
 			    _buf[3] == '-')				\
 				continue;				\
 			if (strncmp(_buf, (_exp), strlen(_exp)) == 0)	\
